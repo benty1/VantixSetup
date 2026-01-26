@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vantix Home Cinema | Setup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --vantix-gold: #FFD700;
+            --vantix-purple: #71368A;
+            --bg-color: #0a0a0a;
+            --card-bg: #141414;
+            --text-main: #ffffff;
+            --text-gray: #a0a0a0;
+            --instr-bg: #1d1d1d;
+            --border: #222;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg-color: #f0f0f0;
+                --card-bg: #ffffff;
+                --text-main: #1a1a1a;
+                --text-gray: #666666;
+                --instr-bg: #f9f9f9;
+                --border: #ddd;
+            }
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 92%;
+            padding: 40px 20px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        /* HEADING REVERTED TO GOLD */
+        h1 { 
+            color: var(--vantix-gold); 
+            font-size: 2.4rem; 
+            margin: 0; 
+            letter-spacing: 7px; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+        }
+
+        .subtitle { color: var(--text-gray); font-size: 0.75rem; margin-bottom: 30px; letter-spacing: 4px; text-transform: uppercase; }
+
+        .button-stack { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+
+        .btn {
+            height: 60px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s all ease;
+            width: 100%;
+        }
+
+        .btn-primary { background-color: var(--vantix-purple); color: white !important; }
+        .btn-request { background-color: transparent; color: var(--text-main); border: 2px solid var(--vantix-purple); }
+        .btn-web { background-color: transparent; color: var(--text-gray); font-size: 0.85rem; height: auto; padding: 10px; }
+
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        /* Modal Styles */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(8px); }
+        .modal-content { background: var(--card-bg); padding: 30px; border-radius: 25px; width: 85%; max-width: 320px; border: 1px solid var(--vantix-purple); }
+        .choice-btn { padding: 15px; border-radius: 12px; text-decoration: none; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px; color: white; margin-bottom: 10px; }
+        .tg-bg { background: #26A5E4; } .ds-bg { background: #5865F2; } .wa-bg { background: #25D366; }
+
+        /* Instruction Box */
+        .instructions { text-align: left; background: var(--instr-bg); padding: 20px; border-radius: 20px; }
+        .step { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; font-size: 0.85rem; }
+        .step-num { background: var(--vantix-purple); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; font-weight: bold; }
+        
+        .server-box { background: var(--bg-color); padding: 14px; border-radius: 12px; border: 1px dashed var(--vantix-purple); cursor: pointer; margin-top: 15px; text-align: center; }
+        .server-url { font-family: monospace; font-size: 0.85rem; color: var(--vantix-purple); font-weight: bold; word-break: break-all; }
+        
+        .social-row { display: flex; justify-content: center; gap: 35px; margin-top: 30px; padding-top: 25px; border-top: 1px solid var(--border); }
+        .social-row a { color: var(--text-gray); font-size: 1.8rem; }
+        .footer { margin-top: 35px; font-size: 0.65rem; color: var(--text-gray); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>VANTIX</h1>
+    <div class="subtitle">Personal Media Cloud</div>
+
+    <div class="button-stack">
+        <a id="installBtn" href="https://jellyfin.org/downloads" class="btn btn-primary">
+            <i class="fa-solid fa-mobile-screen"></i> <span id="btnText">INSTALL JELLYFIN</span>
+        </a>
+
+        <button onclick="toggleModal()" class="btn btn-request">
+            <i class="fa-solid fa-comment-dots"></i> REQUEST CONTENT
+        </button>
+
+        <a href="https://benty1.merlion.usbx.me/jellyfin" class="btn btn-web">
+            <i class="fa-solid fa-globe"></i> OPEN WEB PLAYER (PC/MAC)
+        </a>
+    </div>
+
+    <div class="instructions">
+        <div class="step"><div class="step-num">1</div><div>Open the App</div></div>
+        <div class="step"><div class="step-num">2</div><div>Copy/Paste the address below</div></div>
+
+        <div class="server-box" onclick="copyServerAddress()">
+            <span class="server-url" id="serverAddr">https://benty1.merlion.usbx.me/jellyfin</span>
+        </div>
+    </div>
+
+    <div class="social-row">
+        <a href="https://t.me/+_x88d8rT1GU2MWM1" class="tg"><i class="fa-brands fa-telegram"></i></a>
+        <a href="https://discord.gg/GNnpAr9ss" class="ds"><i class="fa-brands fa-discord"></i></a>
+        <a href="https://chat.whatsapp.com/C0fL0NdbdyD5A9lq0JiumJ" class="wa"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+
+    <div class="footer">VANTIX MEDIA GROUP &bull; 2026</div>
+</div>
+
+<div class="modal-overlay" id="requestModal" onclick="closeModalOutside(event)">
+    <div class="modal-content">
+        <h2 style="color: var(--vantix-purple); margin-top: 0;">Submit Request</h2>
+        <div class="social-choice">
+            <a href="https://t.me/+_x88d8rT1GU2MWM1" class="choice-btn tg-bg"><i class="fa-brands fa-telegram"></i> Telegram</a>
+            <a href="https://discord.gg/GNnpAr9ss" class="choice-btn ds-bg"><i class="fa-brands fa-discord"></i> Discord</a>
+            <a href="https://chat.whatsapp.com/C0fL0NdbdyD5A9lq0JiumJ" class="choice-btn wa-bg"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        </div>
+        <div style="margin-top: 15px; cursor: pointer; font-size: 0.8rem; color: var(--text-gray);" onclick="toggleModal()">Close</div>
+    </div>
+</div>
+
+<script>
+    function toggleModal() {
+        const modal = document.getElementById('requestModal');
+        modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+    }
+    function closeModalOutside(e) { if (e.target.id === 'requestModal') toggleModal(); }
+
+    const installBtn = document.getElementById('installBtn');
+    const btnText = document.getElementById('btnText');
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    if (/android/i.test(userAgent)) {
+        installBtn.href = "https://play.google.com/store/apps/details?id=org.jellyfin.mobile";
+        btnText.innerText = "GET FOR ANDROID";
+    } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        installBtn.href = "https://apps.apple.com/us/app/jellyfin-mobile/id1480192618";
+        btnText.innerText = "GET FOR IPHONE";
+    }
+
+    function copyServerAddress() {
+        const text = document.getElementById('serverAddr').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Server URL Copied!");
+        });
+    }
+</script>
+
+</body>
+</html>
