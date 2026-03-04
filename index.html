@@ -8,22 +8,20 @@
     <style>
         :root { --purple: #71368A; --gold: #D4AF37; --dark: #121212; --green: #2ecc71; --red: #e74c3c; }
         body { background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
-        .wizard-card { background: #1e1e1e; padding: 2.5rem; border-radius: 30px; border: 2px solid var(--purple); text-align: center; max-width: 400px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
+        .wizard-card { background: #1e1e1e; padding: 2rem; border-radius: 30px; border: 2px solid var(--purple); text-align: center; max-width: 380px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
         .status-pill { display: inline-flex; align-items: center; background: #000; padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; margin-bottom: 20px; border: 1px solid #333; }
-        .dot { height: 8px; width: 8px; border-radius: 50%; margin-right: 8px; transition: 0.3s; }
+        .dot { height: 8px; width: 8px; border-radius: 50%; margin-right: 8px; }
         .dot.online { background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
-        .dot.offline { background: var(--red); box-shadow: 0 0 8px var(--red); }
-        h1 { color: var(--gold); margin: 0; font-size: 2.8rem; letter-spacing: 5px; font-weight: 900; }
-        .sub-text { color: #888; font-size: 0.9rem; margin-bottom: 25px; }
-        .step-box { background: #262626; padding: 20px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #3d3d3d; position: relative; text-align: left; }
-        .btn { display: block; background: var(--purple); color: white; padding: 16px; border-radius: 14px; text-decoration: none; font-weight: bold; cursor: pointer; border: none; width: 100%; font-size: 1.1rem; transition: 0.3s; text-align: center; }
+        h1 { color: var(--gold); margin: 0; font-size: 2.5rem; letter-spacing: 4px; font-weight: 900; }
+        .sub-text { color: #888; font-size: 0.85rem; margin-bottom: 20px; }
+        .step-box { background: #262626; padding: 18px; border-radius: 18px; margin-bottom: 12px; border: 1px solid #3d3d3d; position: relative; text-align: left; }
+        .btn { display: block; background: var(--purple); color: white; padding: 16px; border-radius: 14px; text-decoration: none; font-weight: bold; cursor: pointer; border: none; width: 100%; font-size: 1rem; transition: 0.3s; text-align: center; box-sizing: border-box; }
         .btn-gold { background: var(--gold); color: black; }
         .copy-tag { position: absolute; top: 10px; right: 10px; font-size: 0.6rem; background: #444; padding: 4px 8px; border-radius: 10px; cursor: pointer; color: var(--gold); border: 1px solid var(--gold); }
-        #qrcode-container { background: white; padding: 10px; border-radius: 10px; display: inline-block; margin: 15px auto; width: 130px; }
-        .social-links { margin-top: 25px; border-top: 1px solid #333; padding-top: 20px; }
-        .social-grid { display: flex; justify-content: center; gap: 20px; margin-top: 10px; }
-        .social-icon { font-size: 1.8rem; transition: 0.3s; color: #666; text-decoration: none; }
-        .social-icon:hover { transform: translateY(-3px); color: var(--gold); }
+        #qrcode-container { background: white; padding: 10px; border-radius: 10px; display: inline-block; margin: 10px auto; }
+        .social-grid { display: flex; justify-content: center; gap: 20px; margin-top: 20px; border-top: 1px solid #333; padding-top: 20px; }
+        .social-icon { font-size: 1.5rem; color: #666; text-decoration: none; transition: 0.3s; }
+        .social-icon:hover { color: var(--gold); transform: translateY(-2px); }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
     </style>
 </head>
@@ -31,8 +29,8 @@
 
 <div class="wizard-card">
     <div class="status-pill">
-        <div id="status-dot" class="dot offline"></div>
-        <span id="status-text">Checking System...</span>
+        <div id="status-dot" class="dot online"></div>
+        <span id="status-text" style="color:var(--green)">Vantix Online</span>
     </div>
     
     <h1>VANTIX</h1>
@@ -40,13 +38,10 @@
 
     <div id="dynamic-content"></div>
 
-    <div class="social-links">
-        <p style="font-size: 0.7rem; color: #666; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; text-align: center;">Support Channels</p>
-        <div class="social-grid">
-            <a href="https://discord.gg/GNnpAr9ss" target="_blank" class="social-icon"><i class="fa-brands fa-discord"></i></a>
-            <a href="https://t.me/+_x88d8rT1GU2MWM1" target="_blank" class="social-icon"><i class="fa-brands fa-telegram"></i></a>
-            <a href="https://chat.whatsapp.com/C0fL0NdbdyD5A9lq0JiumJ" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
-        </div>
+    <div class="social-grid">
+        <a href="https://discord.gg/GNnpAr9ss" target="_blank" class="social-icon"><i class="fa-brands fa-discord"></i></a>
+        <a href="https://t.me/+_x88d8rT1GU2MWM1" target="_blank" class="social-icon"><i class="fa-brands fa-telegram"></i></a>
+        <a href="https://chat.whatsapp.com/C0fL0NdbdyD5A9lq0JiumJ" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
     </div>
 </div>
 
@@ -55,114 +50,76 @@
     const serverUrl = "https://benty1.merlion.usbx.me/jellyfin";
     const shortUrl = "is.gd/vntx1";
     const samsungInstaller = "patrickst1991.github.io/Samsung-Jellyfin-Installer/";
-    const swiftfinID = "1604098728";
+    const appStoreLink = "https://apps.apple.com/app/id1604098728";
 
-    function checkServer() {
-        const img = new Image();
-        const setOnline = () => {
-            document.getElementById('status-dot').className = "dot online";
-            document.getElementById('status-text').innerText = "Vantix Online";
-            document.getElementById('status-text').style.color = "var(--green)";
-        };
-        img.onload = setOnline;
-        img.onerror = setOnline; 
-        img.src = serverUrl + "/web/favicon.ico?" + new Date().getTime();
+    async function copyUrl() {
+        const btn = document.getElementById('main-btn');
+        try {
+            await navigator.clipboard.writeText(serverUrl);
+            btn.innerText = "COPIED!";
+            btn.style.background = "var(--green)";
+            document.getElementById('instruction').innerHTML = "<b>Address Copied!</b> Now open Swiftfin and Paste it.";
+            setTimeout(() => { 
+                btn.innerText = "OPEN SWIFTFIN (APP STORE)";
+                btn.onclick = () => window.location.href = appStoreLink;
+            }, 1500);
+        } catch (err) {
+            btn.innerText = "FAILED TO COPY";
+        }
     }
 
     async function copyToClipboard(text, elementId) {
-        try {
-            await navigator.clipboard.writeText(text);
-            const el = document.getElementById(elementId);
-            const originalText = el.innerText;
-            el.innerText = "COPIED!";
-            el.style.color = "var(--green)";
-            setTimeout(() => { 
-                el.innerText = originalText;
-                el.style.color = "var(--gold)";
-            }, 2000);
-        } catch (err) { console.error(err); }
-    }
-
-    async function tryOpenApp() {
-        const btn = document.querySelector('.btn-gold');
-        const isApple = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        
-        try {
-            await navigator.clipboard.writeText(serverUrl);
-            btn.innerText = "COPIED & OPENING...";
-            btn.style.background = "var(--green)";
-        } catch (e) {}
-
-        if (isApple) {
-            // Attempt to open Swiftfin directly
-            window.location.href = "swiftfin://";
-            setTimeout(() => {
-                if (document.hasFocus()) {
-                    // Redirect to the verified Swiftfin App Store ID
-                    window.location.href = `https://apps.apple.com/app/id${swiftfinID}`;
-                }
-            }, 1500);
-        } else {
-            window.location.href = "https://play.google.com/store/apps/details?id=org.jellyfin.mobile";
-        }
+        await navigator.clipboard.writeText(text);
+        const el = document.getElementById(elementId);
+        el.innerText = "DONE!";
+        setTimeout(() => el.innerText = "COPY", 2000);
     }
 
     const content = document.getElementById('dynamic-content');
     const ua = navigator.userAgent;
-    
     const isTizen = /Tizen/i.test(ua);
-    const isWebOS = /Web0S|LG\sBrowser/i.test(ua);
-    const isAppleDevice = /iPad|iPhone|iPod|AppleTV/.test(ua);
-    const isGenericTV = /SmartTV|GoogleTV|Chromecast|AndroidTV|FireTV|Roku/i.test(ua);
-    const isTV = isTizen || isWebOS || isGenericTV;
+    const isApple = /iPad|iPhone|iPod/.test(ua);
+    const isTV = /SmartTV|GoogleTV|AppleTV|Tizen|Web0S/i.test(ua);
 
     if (isTizen) {
         content.innerHTML = `
-            <div class="step-box" style="border: 2px solid var(--gold);">
-                <p style="font-size:0.7rem; color:var(--gold); text-transform:uppercase; margin-bottom:5px;">Samsung TV Detected</p>
+            <div class="step-box" style="border: 1px solid var(--gold);">
+                <p style="font-size:0.7rem; color:var(--gold); text-transform:uppercase;">Samsung TV Method</p>
                 <p><strong>1. TV Browser</strong></p>
-                <p style="font-size:0.8rem; color:#888;">Enter this on your TV:</p>
-                <div style="background:#000; padding:10px; border-radius:10px; margin-top:5px;">
-                    <code style="font-size:0.7rem; color:var(--gold);">${samsungInstaller}</code>
-                </div>
-            </div>
-            <div class="step-box">
-                <p><strong>2. Vantix Address</strong></p>
-                <p style="font-size:1.4rem; color:var(--gold); font-weight:bold; margin-top:5px;">${shortUrl}</p>
-            </div>
-        `;
-    } else if (isTV) {
-        let app = isAppleDevice ? "Swiftfin" : "Jellyfin";
-        content.innerHTML = `
-            <div class="step-box" style="border: 2px solid var(--gold);">
-                <p><strong>1. Install App</strong></p>
-                <p style="font-size:0.8rem; color:#888;">Search <b>"${app}"</b> in your TV's App Store.</p>
+                <p style="font-size:0.8rem; color:#888;">Go to this URL on your TV:</p>
+                <code style="font-size:0.7rem; color:white; display:block; margin-top:5px;">${samsungInstaller}</code>
             </div>
             <div class="step-box">
                 <p><strong>2. Server Address</strong></p>
-                <p style="font-size:1.6rem; color:var(--gold); margin:5px 0; font-weight:bold; letter-spacing:1px; text-align:center;">${shortUrl}</p>
+                <p style="font-size:1.4rem; color:var(--gold); font-weight:bold;">${shortUrl}</p>
+            </div>
+        `;
+    } else if (isApple && !isTV) {
+        content.innerHTML = `
+            <div class="step-box" style="border: 1px solid var(--gold); text-align:center;">
+                <p id="instruction" style="font-size:0.85rem; margin-bottom:15px;">Tap below to copy the server address:</p>
+                <button id="main-btn" onclick="copyUrl()" class="btn btn-gold">COPY SERVER ADDRESS</button>
+            </div>
+            <div class="step-box">
+                <p style="font-size:0.7rem; color:#666; text-transform:uppercase;">Manual URL</p>
+                <code style="font-size:0.7rem; color:var(--gold); word-break:break-all;">${serverUrl}</code>
+            </div>
+        `;
+    } else {
+        // Generic / Android / TV View
+        content.innerHTML = `
+            <div class="step-box" style="border: 1px solid var(--gold);">
+                <p><strong>1. Install Jellyfin</strong></p>
+                <p style="font-size:0.8rem; color:#888;">Available on your TV's App Store.</p>
+            </div>
+            <div class="step-box">
+                <p><strong>2. Server Address</strong></p>
+                <p style="font-size:1.5rem; color:var(--gold); font-weight:bold; text-align:center;">${shortUrl}</p>
             </div>
             <div id="qrcode-container"><div id="qrcode"></div></div>
         `;
         new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 130, height: 130 });
-    } else {
-        const appLabel = isAppleDevice ? "Swiftfin" : "Jellyfin";
-        content.innerHTML = `
-            <div class="step-box" style="border: 2px solid var(--gold);">
-                <button onclick="tryOpenApp()" class="btn btn-gold">Connect to Vantix</button>
-                <p style="font-size:0.7rem; color:#888; margin-top:12px; text-align:center;">
-                    <i class="fas fa-info-circle"></i> Once open, just <b>PASTE</b> the address!
-                </p>
-            </div>
-            <div class="step-box">
-                <p style="font-size:0.7rem; color:#666; margin-bottom:5px; text-transform:uppercase;">Manual URL</p>
-                <code style="font-size:0.7rem; color:var(--gold); word-break:break-all;">${serverUrl}</code>
-                <div class="copy-tag" id="copy-manual" onclick="copyToClipboard('${serverUrl}', 'copy-manual')">COPY</div>
-            </div>
-        `;
     }
-    
-    checkServer();
 </script>
 </body>
 </html>
