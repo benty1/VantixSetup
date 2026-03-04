@@ -86,14 +86,16 @@
         }
     }
 
-    // --- 3. UNIVERSAL CONNECT (Swiftfin for iOS / Jellyfin for Android) ---
+    // --- 3. UNIVERSAL CONNECT (Direct Swiftfin Launch) ---
     async function tryOpenApp() {
         const btn = document.querySelector('.btn-gold');
         const hint = document.getElementById('paste-hint');
+        const isApple = /iPad|iPhone|iPod/.test(navigator.userAgent);
         
+        // 1. Copy Address
         try {
             await navigator.clipboard.writeText(serverUrl);
-            btn.innerText = "COPIED TO CLIPBOARD!";
+            btn.innerText = "COPIED & OPENING...";
             btn.style.background = "var(--green)";
             if(hint) hint.style.display = "block";
         } catch (e) {
@@ -103,16 +105,25 @@
             el.select();
             document.execCommand('copy');
             document.body.removeChild(el);
-            btn.innerText = "COPIED!";
         }
 
-        setTimeout(() => {
-            const isApple = /iPad|iPhone|iPod/.test(navigator.userAgent);
-            const storeLink = isApple 
-                ? "https://apps.apple.com/us/app/swiftfin/id1604093073" 
-                : "https://play.google.com/store/apps/details?id=org.jellyfin.mobile";
-            window.location.href = storeLink;
-        }, 1200);
+        // 2. Direct App Launch Attempt
+        if (isApple) {
+            // Try to launch Swiftfin app scheme
+            window.location.href = "swiftfin://";
+            
+            // 3. Fallback to Store if app not opened within 1.5 seconds
+            setTimeout(() => {
+                if (document.hasFocus()) {
+                    window.location.href = "https://apps.apple.com/us/app/swiftfin/id1604093073";
+                }
+            }, 1500);
+        } else {
+            // Android Logic
+            setTimeout(() => {
+                window.location.href = "https://play.google.com/store/apps/details?id=org.jellyfin.mobile";
+            }, 1000);
+        }
     }
 
     // --- 4. DYNAMIC RENDERING ---
@@ -126,7 +137,6 @@
     const isTV = isTizen || isWebOS || isGenericTV;
 
     if (isTizen) {
-        // SAMSUNG TIZEN VIEW
         content.innerHTML = `
             <div class="step-box" style="border: 2px solid var(--gold);">
                 <p style="font-size:0.7rem; color:var(--gold); text-transform:uppercase; margin-bottom:5px;">Samsung TV Detected</p>
@@ -134,7 +144,7 @@
                 <p style="font-size:0.8rem; color:#888; margin-bottom:10px;">Type this in your TV address bar:</p>
                 <div style="background:#000; padding:10px; border-radius:10px; position:relative;">
                     <code style="font-size:0.75rem; color:var(--gold); word-break:break-all;">${samsungInstaller}</code>
-                    <div class="copy-tag" id="copy-installer" onclick="copyToClipboard('${samsungInstaller}', 'copy-installer')">COPY FOR TV</div>
+                    <div class="copy-tag" id="copy-installer" onclick="copyToClipboard('${samsungInstaller}', 'copy-installer')">COPY</div>
                 </div>
             </div>
             <div class="step-box">
@@ -147,7 +157,6 @@
             </div>
         `;
     } else if (isTV) {
-        // OTHER TVS (Apple TV / Android / Roku)
         let appName = isAppleDevice ? "Swiftfin" : "Jellyfin";
         content.innerHTML = `
             <div class="step-box" style="border: 2px solid var(--gold);">
@@ -162,13 +171,12 @@
         `;
         new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 130, height: 130 });
     } else {
-        // MOBILE VIEW (Dynamic Swiftfin/Jellyfin Detection)
         const appLabel = isAppleDevice ? "Swiftfin" : "Jellyfin";
         content.innerHTML = `
             <div class="step-box" style="border: 2px solid var(--gold);">
                 <button onclick="tryOpenApp()" class="btn btn-gold">Connect to Vantix</button>
                 <p id="paste-hint" style="font-size:0.75rem; color:#888; margin-top:12px; display:none;">
-                    <i class="fas fa-info-circle"></i> Opening Store... Once <b>${appLabel}</b> is open, just <b>PASTE</b> the address!
+                    <i class="fas fa-info-circle"></i> Opening ${appLabel}... Once open, just <b>PASTE</b> the address!
                 </p>
             </div>
             <div class="step-box">
